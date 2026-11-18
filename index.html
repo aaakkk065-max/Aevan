@@ -77,67 +77,52 @@
         <h2>استوديو الذكاء الاصطناعي</h2>
         
         <label>صف اللحن أو الموسيقى:</label>
-        <input type="text" id="musicInput" value="Arabic Rap" placeholder="موسيقى وبيت سعاده">
+        <input type="text" id="mBox" value="Arabic Rap" placeholder="موسيقى وبيت سعاده">
         
         <label>اكتب الكلمات الجديدة:</label>
-        <textarea id="lyricsInput" rows="4" placeholder="اكتب كلمات الأغنية هنا...">يا ساس المجد ويا طارية بالطيب...</textarea>
+        <textarea id="lBox" rows="4" placeholder="اكتب كلمات الأغنية هنا...">يا ساس المجد ويا طارية بالطيب...</textarea>
         
-        <!-- زر التوليد المباشر -->
-        <button type="button" onclick="startGeneration()">توليد الأغنية</button>
+        <button type="button" onclick="runStudio()">توليد الأغنية</button>
         
         <div id="result"></div>
         
-        <!-- مشغل الصوت -->
-        <audio id="audioPlayer" controls style="display: none;">
+        <audio id="myAudio" controls style="display: none;">
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
             متصفحك لا يدعم مشغل الصوت
         </audio>
     </div>
 
-    <!-- كود الجافاسكريبت النظيف والخالي من الأخطاء -->
     <script>
-        function startGeneration() {
-            var musicInput = document.getElementById( musicInput );
-            var lyricsInput = document.getElementById( lyricsInput );
-            var resultDiv = document.getElementById( result );
-            var audioPlayer = document.getElementById( audioPlayer );
+        function runStudio() {
+            var mVal = document.getElementById( mBox ).value;
+            var lVal = document.getElementById( lBox ).value;
+            var res = document.getElementById( result );
+            var aud = document.getElementById( myAudio );
 
-            if (!musicInput || !lyricsInput || !resultDiv) {
-                alert("خطأ في قراءة عناصر الصفحة!");
+            if (mVal.trim() === "" || lVal.trim() === "") {
+                res.style.color = "#ff6b6b";
+                res.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
                 return;
             }
 
-            var music = musicInput.value;
-            var lyrics = lyricsInput.value;
+            res.style.color = "#4ea8de";
+            res.innerHTML = "⏳ جاري توليد الأغنية ومعالجة الصوت...";
+            aud.style.display = "none";
 
-            if (music === "" || lyrics === "") {
-                resultDiv.style.color = "#ff6b6b";
-                resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
-                return;
-            }
-
-            resultDiv.style.color = "#4ea8de";
-            resultDiv.innerHTML = "⏳ جاري توليد الأغنية ومعالجة الصوت...";
-            audioPlayer.style.display = "none";
-
-            // محاكاة التوليد وإظهار مشغل الصوت بعد ثانيتين ونصف
             setTimeout(function() {
-                resultDiv.style.color = "#52b788";
-                resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
-                
-                audioPlayer.style.display = "block";
-                audioPlayer.play().catch(function(e) {
-                    console.log("التشغيل يتطلب نقرة يدويّة");
+                res.style.color = "#52b788";
+                res.innerHTML = "✅ تم توليد الأغنية بنجاح!";
+                aud.style.display = "block";
+                aud.play().catch(function(e) {
+                    console.log("تشغيل يدوي مطلوب");
                 });
-            }, 2500);
+            }, 2000);
         }
     </script>
 
-    <!-- أداة المطورين -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
 
 </body>
 </html>
 
-  
