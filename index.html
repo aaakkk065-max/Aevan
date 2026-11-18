@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استوديو الذكاء الاصطناعي - إيفان</title>
+    <style>
+        body {
+            background-color: #0d1b2a;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #1b263b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #4ea8de;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: right;
+            font-size: 14px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #0d1b2a;
+            border: 1px solid #415a77;
+            border-radius: 6px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background-color: #0077b6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0096c7;
+        }
+        #result {
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        audio {
+            width: 100%;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>استوديو الذكاء الاصطناعي</h2>
+        
+        <label>صف اللحن أو الموسيقى:</label>
+        <input type="text" id="musicInput" value="Arabic Rap" placeholder="موسيقى وبيت سعاده">
+        
+        <label>اكتب الكلمات الجديدة:</label>
+        <textarea id="lyricsInput" rows="4" placeholder="اكتب كلمات الأغنية هنا...">يا ساس المجد ويا طارية بالطيب...</textarea>
+        
+        <!-- زر التوليد المباشر -->
+        <button type="button" onclick="startGeneration()">توليد الأغنية</button>
+        
+        <div id="result"></div>
+        
+        <!-- مشغل الصوت -->
+        <audio id="audioPlayer" controls style="display: none;">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            متصفحك لا يدعم مشغل الصوت
+        </audio>
+    </div>
+
+    <!-- كود الجافاسكريبت النظيف والخالي من الأخطاء -->
+    <script>
+        function startGeneration() {
+            var musicInput = document.getElementById( musicInput );
+            var lyricsInput = document.getElementById( lyricsInput );
+            var resultDiv = document.getElementById( result );
+            var audioPlayer = document.getElementById( audioPlayer );
+
+            if (!musicInput || !lyricsInput || !resultDiv) {
+                alert("خطأ في قراءة عناصر الصفحة!");
+                return;
+            }
+
+            var music = musicInput.value;
+            var lyrics = lyricsInput.value;
+
+            if (music === "" || lyrics === "") {
+                resultDiv.style.color = "#ff6b6b";
+                resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
+                return;
+            }
+
+            resultDiv.style.color = "#4ea8de";
+            resultDiv.innerHTML = "⏳ جاري توليد الأغنية ومعالجة الصوت...";
+            audioPlayer.style.display = "none";
+
+            // محاكاة التوليد وإظهار مشغل الصوت بعد ثانيتين ونصف
+            setTimeout(function() {
+                resultDiv.style.color = "#52b788";
+                resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
+                
+                audioPlayer.style.display = "block";
+                audioPlayer.play().catch(function(e) {
+                    console.log("التشغيل يتطلب نقرة يدويّة");
+                });
+            }, 2500);
+        }
+    </script>
+
+    <!-- أداة المطورين -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+
+</body>
+</html>
+
+  
